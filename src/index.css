@@ -141,3 +141,9 @@ p.text-muted-foreground {
   *:focus-visible {
     @apply outline outline-4 outline-foreground outline-offset-2 rounded-sm;
   }
+
+/* REGRA PARA DAR ESPAÇO APENAS NA SEÇÃO ESPECÍFICA */
+
+section:has(h2:contains-text("Não deixe de ver")) {
+  margin-top: 80px !important;
+}
