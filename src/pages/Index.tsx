@@ -69,8 +69,10 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [uniqueMovies]); // Monitora a lista de filmes
   
-  // 4. Definimos qual filme aparece no Banner
-  const heroMovie = uniqueMovies[currentBannerIndex] || uniqueMovies[0] || null;
+  // 4. Garante que o heroMovie sempre mude quando o Index mudar
+  const heroMovie = useMemo(() => {
+    return uniqueMovies[currentBannerIndex] || uniqueMovies[0] || null;
+  }, [uniqueMovies, currentBannerIndex]);
 
   // --- FIM DA CONFIGURAÇÃO DO BANNER ---
 
