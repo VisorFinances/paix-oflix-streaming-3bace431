@@ -51,17 +51,22 @@ const Index = () => {
   // 2. Criamos o contador do banner
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
-  // 3. Ligamos o temporizador (agora ele "enxerga" a lista uniqueMovies)
+  // 3. Ligamos o temporizador (agora ele monitora a lista completa)
   useEffect(() => {
-    if (uniqueMovies.length === 0) return;
+    // Se não houver filmes ou apenas 1, não precisa rodar o intervalo
+    if (uniqueMovies.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentBannerIndex((prev) => (prev + 1) % Math.min(uniqueMovies.length, 20));
+      setCurrentBannerIndex((prev) => {
+        const next = (prev + 1) % Math.min(uniqueMovies.length, 20);
+        // Esse log vai te mostrar no console (F12) se o motor está funcionando
+        console.log("PaixãoFlix: Mudando banner para o índice:", next);
+        return next;
+      });
     }, 10000); // 10 segundos
 
     return () => clearInterval(interval);
-  }, [uniqueMovies.length]);
-
+  }, [uniqueMovies]); // <--- Mudança importante aqui: monitorar uniqueMovies
   // 4. Definimos qual filme aparece no Banner
   const heroMovie = uniqueMovies[currentBannerIndex] || uniqueMovies[0] || null;
 
