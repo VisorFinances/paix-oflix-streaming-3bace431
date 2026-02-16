@@ -142,3 +142,8 @@ p.text-muted-foreground {
     @apply outline outline-4 outline-foreground outline-offset-2 rounded-sm;
   }
 }
+
+/* Isso empurra apenas a primeiríssima fileira de filmes */
+section:first-of-type {
+  margin-top: 100px !important;
+}
