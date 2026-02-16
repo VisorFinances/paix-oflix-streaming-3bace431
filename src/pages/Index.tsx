@@ -43,21 +43,30 @@ const Index = () => {
 
   useSmartTV();
 
-// 1. Contador para saber qual filme mostrar no banner
+  // --- CONFIGURAÇÃO DO BANNER (ORDEM CORRETA) ---
+
+  // 1. Primeiro criamos a lista de filmes únicos
+  const uniqueMovies = useMemo(() => deduplicateByTitle(movies), [movies]);
+
+  // 2. Criamos o contador do banner
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
-  // 2. Temporizador de 10 segundos
+  // 3. Ligamos o temporizador (agora ele "enxerga" a lista uniqueMovies)
   useEffect(() => {
     if (uniqueMovies.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentBannerIndex((prev) => (prev + 1) % Math.min(uniqueMovies.length, 20)); 
-      // O Math.min(..., 20) faz ele rodar apenas entre os 10 primeiros filmes
-    }, 10000);
+      setCurrentBannerIndex((prev) => (prev + 1) % Math.min(uniqueMovies.length, 20));
+    }, 10000); // 10 segundos
 
     return () => clearInterval(interval);
-  }, [uniqueMovies.length]); // Dependência corrigida
-  
+  }, [uniqueMovies.length]);
+
+  // 4. Definimos qual filme aparece no Banner
+  const heroMovie = uniqueMovies[currentBannerIndex] || uniqueMovies[0] || null;
+
+  // --- FIM DA CONFIGURAÇÃO DO BANNER ---
+
   const toggleFavorite = (id: string) => {
     setFavorites(prev => prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]);
   };
@@ -92,13 +101,8 @@ const Index = () => {
     });
   };
 
-  // Deduplicated movies for home
-  const uniqueMovies = useMemo(() => deduplicateByTitle(movies), [movies]);
-
-  // Hero
-  // Agora o filme do banner depende do nosso contador currentBannerIndex
-  const heroMovie = uniqueMovies[currentBannerIndex] || uniqueMovies[0] || null;
-
+  const continueWatchingMovies = useMemo(() => {
+// ... continue o resto do código normalmente daqui para baixo
   const continueWatchingMovies = useMemo(() => {
     const ids = Object.entries(continueWatching)
       .filter(([, p]) => p > 0 && p < 95)
