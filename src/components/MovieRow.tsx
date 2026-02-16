@@ -29,8 +29,8 @@ const MovieRow = ({ title, subtitle, movies, onPlay, onToggleFavorite, favorites
   return (
     <section className="mb-8 animate-fade-in">
       <div className="px-4 md:px-12 mb-3">
-        <h2 className="text-2xl md:text-3xl font-display tracking-wider text-foreground">{title}</h2>
-        {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
+        <h2 className="text-2xl md:text-5xl font-display tracking-wider text-foreground">{title}</h2>
+        {subtitle && <p className="text-xl text-muted-foreground mt-0.5">{subtitle}</p>}
       </div>
       <div className="relative group/row">
         <button
