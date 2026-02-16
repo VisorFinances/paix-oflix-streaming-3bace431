@@ -100,9 +100,7 @@ const Index = () => {
       source: 'cinema',
     });
   };
-
-  const continueWatchingMovies = useMemo(() => {
-// ... continue o resto do código normalmente daqui para baixo
+ 
   const continueWatchingMovies = useMemo(() => {
     const ids = Object.entries(continueWatching)
       .filter(([, p]) => p > 0 && p < 95)
@@ -241,7 +239,7 @@ const Index = () => {
         {/* Home View */}
         {activeView === 'home' && (
           <>
-            <HeroBanner movie={heroMovie} onPlay={handlePlay} onShowDetails={setDetailMovie} />
+            <HeroBanner key={heroMovie?.id} movie={heroMovie} onPlay={handlePlay} onShowDetails={setDetailMovie} />
             
             <div className="-mt-20 relative z-10">
               {continueWatchingMovies.length > 0 && (
