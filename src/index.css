@@ -113,6 +113,30 @@ body {
     display: none;
   }
 
+  /* REGRA GERAL DE TAMANHOS PAIXÃOFLIX */
+
+/* Isso afeta os títulos das fileiras (Ação, Terror, etc) */
+h2 {
+  font-size: 1.5rem !important; /* Tamanho para celular */
+}
+
+/* Isso afeta os subtítulos (aquelas frases menores) */
+p.text-muted-foreground {
+  font-size: 1.1rem !important;
+  margin-top: 8px !important;
+}
+
+/* QUANDO A TELA FOR GRANDE (MODO SMART TV / COMPUTADOR) */
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2.5rem !important; /* Aumenta o título principal para um tamanho gigante */
+    letter-spacing: 0.05em !important; /* Deixa as letras um pouco mais afastadas (estilo cinema) */
+  }
+
+  p.text-muted-foreground {
+    font-size: 1.4rem !important; /* Aumenta o subtítulo para ser lido de longe */
+  }
+}
   /* Smart TV focus ring */
   *:focus-visible {
     @apply outline outline-4 outline-foreground outline-offset-2 rounded-sm;
