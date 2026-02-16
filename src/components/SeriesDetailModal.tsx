@@ -281,6 +281,65 @@ const SeriesDetailModal = ({
                           className="w-full flex items-center gap-4 p-3 rounded-lg hover:bg-accent/50 transition group text-left"
                           whileHover={{ scale: 1.01 }}
                         >
+
+                         {/* Episode List - Refined with Netflix-style proportions */}
+<div className="space-y-4">
+  {episodes.map((ep) => (
+    <motion.button
+      key={ep.number}
+      onClick={() => onPlay(movie, ep.streamUrl)}
+      className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-lg hover:bg-accent/40 transition-all group text-left border border-transparent hover:border-border/50"
+      whileHover={{ x: 4 }}
+    >
+      {/* Episode Number */}
+      <span className="hidden sm:block text-2xl font-display text-muted-foreground/50 w-8 text-center flex-shrink-0 group-hover:text-primary transition-colors">
+        {ep.number}
+      </span>
+
+      {/* Thumbnail Container - Fixed 16:9 */}
+      <div className="relative w-full sm:w-52 md:w-60 aspect-video rounded-md overflow-hidden bg-muted flex-shrink-0 shadow-lg">
+        <img
+          src={displayPoster} // Aqui idealmente seria ep.thumbnail se o Archive provesse
+          alt={ep.title}
+          className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+        />
+        
+        {/* Play Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
+            <Play className="w-5 h-5 text-white fill-white" />
+          </div>
+        </div>
+
+        {/* Duration Badge (Mobile inside image) */}
+        {ep.duration && (
+            <div className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-bold text-white sm:hidden">
+                {ep.duration}
+            </div>
+        )}
+      </div>
+
+      {/* Info Column */}
+      <div className="flex-1 min-w-0 flex flex-col gap-1">
+        <div className="flex justify-between items-start gap-2">
+          <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors truncate">
+            {ep.number}. {ep.title}
+          </h4>
+          {ep.duration && (
+            <span className="hidden sm:block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">
+              {ep.duration}
+            </span>
+          )}
+        </div>
+        
+        {/* Description / Synopsis */}
+        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed font-light">
+          {displayDesc.length > 150 ? `${displayDesc.slice(0, 150)}...` : displayDesc}
+        </p>
+      </div>
+    </motion.button>
+  ))}
+</div> 
                           {/* Episode Number */}
                           <span className="text-2xl font-display text-muted-foreground w-8 text-center flex-shrink-0">
                             {ep.number}
