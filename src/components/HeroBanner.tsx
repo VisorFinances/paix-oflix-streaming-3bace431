@@ -11,11 +11,12 @@ const HeroBanner = ({ movie, onPlay, onShowDetails }: HeroBannerProps) => {
   if (!movie) return null;
 
   return (
-    <div className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden">
+    // A chave no ID faz o componente "nascer de novo" a cada troca de filme
+    <div key={movie.id} className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden animate-fade-in">
       <img
         src={movie.backdrop || movie.image}
         alt={movie.title}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
       />
       <div className="absolute inset-0" style={{ background: 'var(--hero-gradient)' }} />
       <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-transparent" />
