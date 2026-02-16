@@ -248,7 +248,14 @@ const Index = () => {
         {/* Home View */}
         {activeView === 'home' && (
           <>
-            <HeroBanner key={heroMovie?.id} movie={heroMovie} onPlay={handlePlay} onShowDetails={setDetailMovie} />
+            {heroMovie && (
+              <HeroBanner 
+                key={`banner-${heroMovie.id}-${currentBannerIndex}`} 
+                movie={heroMovie} 
+                onPlay={handlePlay} 
+                onShowDetails={setDetailMovie} 
+              />
+            )}
             
             <div className="-mt-20 relative z-10">
               {continueWatchingMovies.length > 0 && (
@@ -343,7 +350,7 @@ const Index = () => {
         )}
       </main>
     </div>
-  );
-};
+   );
+  };
 
 export default Index;
