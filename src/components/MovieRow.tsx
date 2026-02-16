@@ -27,7 +27,7 @@ const MovieRow = ({ title, subtitle, movies, onPlay, onToggleFavorite, favorites
   if (movies.length === 0) return null;
 
   return (
-    <section className="mt-24 mb-8 animate-fade-in">
+    <section className="mt-42 mb-8 animate-fade-in">
       <div className="px-4 md:px-12 mb-3">
         <h2 className="text-2xl md:text-5xl font-display tracking-wider text-foreground">{title}</h2>
         {subtitle && <p className="text-xl text-muted-foreground mt-0.5">{subtitle}</p>}
