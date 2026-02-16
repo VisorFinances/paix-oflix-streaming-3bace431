@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Movie, Channel } from '@/types';
 import { useMovies } from '@/hooks/useMovies';
 import { useChannels } from '@/hooks/useChannels';
@@ -43,6 +43,21 @@ const Index = () => {
 
   useSmartTV();
 
+// 1. Contador para saber qual filme mostrar no banner
+  const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
+
+  // 2. Temporizador de 10 segundos
+  useEffect(() => {
+    if (uniqueMovies.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentBannerIndex((prev) => (prev + 1) % Math.min(uniqueMovies.length, 20)); 
+      // O Math.min(..., 20) faz ele rodar apenas entre os 10 primeiros filmes
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [uniqueMovies.length]); // Dependência corrigida
+  
   const toggleFavorite = (id: string) => {
     setFavorites(prev => prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]);
   };
@@ -81,7 +96,8 @@ const Index = () => {
   const uniqueMovies = useMemo(() => deduplicateByTitle(movies), [movies]);
 
   // Hero
-  const heroMovie = uniqueMovies[0] || null;
+  // Agora o filme do banner depende do nosso contador currentBannerIndex
+  const heroMovie = uniqueMovies[currentBannerIndex] || uniqueMovies[0] || null;
 
   const continueWatchingMovies = useMemo(() => {
     const ids = Object.entries(continueWatching)
